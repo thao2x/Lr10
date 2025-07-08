@@ -52,6 +52,7 @@
                                 name="email"
                                 class="form-control" 
                                 placeholder="Username"
+                                value="{{ old('email')}}"
                             >
                             @error('email')
                                  <p class="error-message">*{{ $message }}</p>
