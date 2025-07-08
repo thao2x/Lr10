@@ -30,7 +30,7 @@ class AuthController extends Controller
             return redirect(route('dashboard.index'));
         }
  
-        toastr()->error('An error has occurred please try again later.');
+        toastr()->error('Sai email hoặc mật khẩu. Vui lòng thử lại!');
         return back();
     }
 

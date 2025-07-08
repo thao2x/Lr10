@@ -2469,9 +2469,9 @@ label.error {
 #toast-container > .toast-warning:before {
   content: "\f0e7";
 }
-#toast-container > .toast-error:before {
+/* #toast-container > .toast-error:before {
   content: "\f071";
-}
+} */
 #toast-container > .toast-info:before {
   content: "\f005";
 }

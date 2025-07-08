@@ -11,7 +11,7 @@
 
         <div id="page-wrapper" class="gray-bg">
             @include('backend.dashboard.component.nav')
-            @include('backend.dashboard.home.index')
+            @include($template)
             @include('backend.dashboard.component.footer')
         </div>
         <div id="right-sidebar">
