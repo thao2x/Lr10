@@ -9,3 +9,9 @@
 
 <link href="{{ asset('backend/css/animate.css') }}" rel="stylesheet">
 <link href="{{ asset('backend/css/style.css') }}" rel="stylesheet">
+<link href="{{ asset('backend/css/customize.css') }}" rel="stylesheet">
+@if (isset($config['css']) && is_array($config['css'] ))
+    @foreach ($config['css'] as $val)
+        <link href="{{ asset($val) }}" rel="stylesheet"></link>
+    @endforeach
+@endif
