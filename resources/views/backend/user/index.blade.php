@@ -44,7 +44,11 @@
                             <th>
                                 <input type="checkbox" value="" id="checkAll" class="input-checkbox">
                             </th>
+<<<<<<< HEAD
                             <th style="width: 20%">Avarta</th>
+=======
+                            <th>Avarta</th>
+>>>>>>> 91037d29506f6dced6d6a5c73a5695397a43f39b
                             <th>Thông tin thành viên</th>
                             <th>Địa chỉ</th>
                             <th>Tình trạng</th>
@@ -56,6 +60,7 @@
                                 <input type="checkbox" value="" class="input-checkbox checkBoxItem">
                             </td>
                             <td>
+<<<<<<< HEAD
                                 <span class="image img-cover"><img src="https://bizweb.dktcdn.net/100/303/962/files/87126502-2509242206005371-2073523065622364160-n-f697e400-e8b2-4bb1-9698-d00b50b2d9c3.jpg?v=1627804121650" alt=""></span>
                             </td>
                             <td>
@@ -86,6 +91,22 @@
                             <td>
                                 <input type="checkbox" class="js-switch" checked="" data-switchery="true" style="display: none;">
                             </td>
+=======
+                                <span class="image"><img src="https://bizweb.dktcdn.net/100/303/962/files/87126502-2509242206005371-2073523065622364160-n-f697e400-e8b2-4bb1-9698-d00b50b2d9c3.jpg?v=1627804121650" alt=""></span>
+                            </td>
+                            <td>
+                                <div class="info-item name">Họ tên:</div>
+                                <div class="info-item name">Email:</div>
+                                <div class="info-item name">Phone:</div>
+                            </td>
+                            <td>
+                                <div class="address-item name">Địa chỉ:</div>
+                                <div class="address-item name">Phường:</div>
+                                <div class="address-item name">Quận:</div>
+                                <div class="address-item name">Thành phố:</div>
+                            </td>
+                            <td class="text-navy"> <i class="fa fa-level-up"></i> 40% </td>
+>>>>>>> 91037d29506f6dced6d6a5c73a5695397a43f39b
                         </tr>
                     </tbody>
                 </table>
