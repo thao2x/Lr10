@@ -37,17 +37,45 @@
                 </div>
             </div>
             <div class="ibox-content">
-
+                <div class="filter">
+                    <div class="perpage">
+                        <div class="uk-flex uk-flex-middle uk-flex-space-between">
+                            <select name="perpage" class="form-control input-sm perpage filter mr10">
+                                @for($i = 20; $i <= 200; $i++)
+                                    <option value="{{ $i }}">{{ $i }} bản ghi</option>
+                                @endfor
+                            </select>
+                            <div class="action">
+                                <div class="uk-flex uk-flex-middle">
+                                    <select name="user_catalogue_id" class="form-control mr10">
+                                        <option value="0" selected="selected">Chọn Nhóm Thành Viên</option>
+                                        <option value="1">Quản trị viên</option>
+                                    </select>
+                                    <div class="uk-search uk-flex uk-flex-middle mr10">
+                                        <div class="input-group">
+                                            <input type="text" name="keyword" value="" placeholder="Nhập từ khóa bạn muốn tìm kiếm..." class="form-control">
+                                            <span class="input-group-btn">
+                                                <button type="submit" name="search" value="search" class="btn btn-primary mb0 btn-sm">Tìm Kiếm</button>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th>
                                 <input type="checkbox" value="" id="checkAll" class="input-checkbox">
                             </th>
-                            <th style="width: 20%">Avarta</th>
-                            <th>Thông tin thành viên</th>
-                            <th>Địa chỉ</th>
-                            <th>Tình trạng</th>
+                            <th style="width: 20%">Họ tên</th>
+                            <th>Email:</th>
+                            <th>Số điện thoại:</th>
+                            <th>Địa chỉ:</th>
+                            <th class="text-center">Tình trạng</th>
+                            <th class="text-center">Thao tác:</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,35 +84,23 @@
                                 <input type="checkbox" value="" class="input-checkbox checkBoxItem">
                             </td>
                             <td>
-                                <span class="image img-cover"><img src="https://bizweb.dktcdn.net/100/303/962/files/87126502-2509242206005371-2073523065622364160-n-f697e400-e8b2-4bb1-9698-d00b50b2d9c3.jpg?v=1627804121650" alt=""></span>
+                                Nguyen Thanh Thao
                             </td>
                             <td>
-                                <div class="info-item name">
-                                    <strong>Họ tên:</strong>
-                                </div>
-                                <div class="info-item name">
-                                    <strong>Email:</strong>
-                                </div>
-                                <div class="info-item name">
-                                    <strong>Phone:</strong>
-                                </div>
+                                tt@gmail.com
                             </td>
                             <td>
-                                <div class="address-item name">
-                                    <strong>Địa chỉ:</strong>
-                                </div>
-                                <div class="address-item name">
-                                    <strong>Phường:</strong>
-                                </div>
-                                <div class="address-item name">
-                                    <strong>Quận:</strong>
-                                </div>
-                                <div class="address-item name">
-                                    <strong>Thành phố:</strong>
-                                </div>
+                                0899310465
                             </td>
                             <td>
+                                Dien Ban, Da Nang
+                            </td>
+                            <td class="text-center">
                                 <input type="checkbox" class="js-switch" checked="" data-switchery="true" style="display: none;">
+                            </td>
+                            <td class="text-center">
+                                <a href="" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                                <a href="" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                             </td>
                         </tr>
                     </tbody>

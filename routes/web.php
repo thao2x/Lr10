@@ -17,9 +17,9 @@ use App\Http\Controllers\Backend\UserController;
 |
 */
 
-// Route::get('/home', function () {
-//     return view('welcome');
-// })->middleware('auth');
+Route::get('/', function () {
+    return view('backend.auth.login');
+});
 
 /* BACKEND ROUTER */
 Route::middleware(['auth'])->group(function () {
