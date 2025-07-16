@@ -16,8 +16,7 @@
                         class="form-control w50">
                     <button type="submit" name="search" value="search"
                         class="btn btn-primary mb-0 btn-sm w25-10 h-100">Tìm Kiếm</button>
-                    <button type="submit" name="search" value="search"
-                        class="btn btn-danger mb-0 btn-sm w25-10 h-100"><i class="fa fa-plus"></i>Thêm mới</button>
+                    <a href="{{route('user.create')}}" class="btn btn-danger mb-0 btn-sm w25-10 h-100"><i class="fa fa-plus"></i>Thêm mới thành viên</a>
                 </div>
             </div>
         </div>

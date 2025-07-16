@@ -24,7 +24,12 @@ Route::get('/', function () {
 /* BACKEND ROUTER */
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/index', [DashboardController::class, 'index'])->name('dashboard.index');
-    Route::get('/user/index', [UserController::class, 'index'])->name('user.index');
+
+    Route::prefix('user')->group(function () {
+        Route::get('index', [UserController::class, 'index'])->name('user.index');
+        Route::get('create', [UserController::class, 'create'])->name('user.create');
+    });
+
 });
 
 Route::get('/admin', [AuthController::class, 'index'])->name('auth.admin')->middleware('guest');
