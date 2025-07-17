@@ -24,11 +24,17 @@ class UserController extends Controller
 
     public function index(){
         $users = $this->userService->paginate();
-        // dd($users);
 
-        $config = $this->config();
         $template = 'backend.user.index';
-        $config['seo']  = config('apps.user');
+        $config = [
+            'js' => [
+                'backend/js/plugins/switchery/switchery.js'
+            ],
+            'css' => [
+                'backend/css/plugins/switchery/switchery.css'
+            ],
+            'seo' => config('apps.user')
+        ];
         
         return view('backend.dashboard.layout',[
             'template' => $template,
@@ -39,7 +45,16 @@ class UserController extends Controller
     
     public function create() {
         $template = 'backend.user.create';
-        $config['seo']  = config('apps.user');
+        $config = [
+            'js' => [
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
+                'backend/library/location.js'
+            ],
+            'css' => [
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
+            ],
+            'seo' => config('apps.user')
+        ];
 
         $location = [
             'province' => $this->provinceRepository->all(),
@@ -51,16 +66,5 @@ class UserController extends Controller
             'config' => $config,
             'location' => $location
         ]);
-    }
-
-    private function config() {
-        return [
-            'js' => [
-                'backend/js/plugins/switchery/switchery.js'
-            ],
-            'css' => [
-                'backend/css/plugins/switchery/switchery.css'
-            ]
-        ];
     }
 }

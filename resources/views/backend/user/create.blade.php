@@ -153,7 +153,7 @@
                                     <label for="" class="control-label text-right">
                                         Thành phố
                                     </label>
-                                    <select name="province_id" id="" class="select-box">
+                                    <select name="province_id" id="province-select" class="select-box setupSelect2">
                                         <option value="0">Chọn Thành phố</option>
                                         @php $provinces = $location['province']; @endphp
                                         @foreach ($provinces as $province)
@@ -167,7 +167,7 @@
                                     <label for="" class="control-label text-right">
                                         Quận/Huyện
                                     </label>
-                                    <select name="district_id" id="" class="select-box">
+                                    <select name="district_id" id="" class="select-box setupSelect2">
                                         <option value="0">Chọn Quận/Huyện</option>
                                         @php $districts = $location['district']; @endphp
                                         @foreach ($districts as $district)
@@ -184,7 +184,7 @@
                                         Phường/Xã
                                         <span class="text-danger">(*)</span>
                                     </label>
-                                    <select name="ward_id" id="" class="select-box">
+                                    <select name="ward_id" id="" class="select-box setupSelect2">
                                         <option value="0">Chọn Phường/Xã</option>
                                     </select>
                                 </div>

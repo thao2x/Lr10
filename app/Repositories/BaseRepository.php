@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Repositories;
+
+use App\Repositories\Interfaces\BaseRepositoryInterface;
+use App\Models\Base;
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Class BaseService
+ * @package App\Repositories
+ */
+class BaseRepository implements BaseRepositoryInterface
+{
+    protected $model;
+
+    public function __construct(Model $model)
+    {
+        $this->model = $model;
+    }
+    public function all(){
+        return $this->model->all();
+    }
+}

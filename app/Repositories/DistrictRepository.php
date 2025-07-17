@@ -3,15 +3,19 @@
 namespace App\Repositories;
 
 use App\Repositories\Interfaces\DistrictRepositoryInterface;
+use App\Repositories\BaseRepository;
 use App\Models\District;
 
 /**
  * Class DistrictService
  * @package App\Repositories
  */
-class DistrictRepository implements DistrictRepositoryInterface
+class DistrictRepository extends BaseRepository implements DistrictRepositoryInterface
 {
-    public function all(){
-        return District::all();
+    protected $model;
+
+    public function __construct(District $model)
+    {
+        $this->model = $model;
     }
 }

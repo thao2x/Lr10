@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Backend\AuthController;
 use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\UserController;
+use App\Http\Controllers\Ajax\LocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,11 @@ Route::middleware(['auth'])->group(function () {
         Route::get('create', [UserController::class, 'create'])->name('user.create');
     });
 
+});
+
+/* AJAX */
+Route::middleware(['auth'])->group(function () {
+    Route::get('/location/getLocation', [LocationController::class, 'getLocation'])->name('lacation.index');
 });
 
 Route::get('/admin', [AuthController::class, 'index'])->name('auth.admin')->middleware('guest');
