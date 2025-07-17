@@ -6,14 +6,20 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Services\Interfaces\UserServiceInterface as UserService;
+use App\Repositories\Interfaces\ProvinceRepositoryInterface as ProvinceRepository;
+use App\Repositories\Interfaces\DistrictRepositoryInterface as DistrictRepository;
 
 
 class UserController extends Controller
 {
     protected $userService;
+    protected $provinceRepository;
+    protected $districtRepository;
 
-    public function __construct(UserService $userService) {
+    public function __construct(UserService $userService, ProvinceRepository $provinceRepository, DistrictRepository $districtRepository) {
         $this->userService = $userService;
+        $this->provinceRepository = $provinceRepository;
+        $this->districtRepository = $districtRepository;
     }
 
     public function index(){
@@ -35,9 +41,15 @@ class UserController extends Controller
         $template = 'backend.user.create';
         $config['seo']  = config('apps.user');
 
+        $location = [
+            'province' => $this->provinceRepository->all(),
+            'district'=> $this->districtRepository->all(),
+        ];
+
         return view('backend.dashboard.layout',[
             'template' => $template,
-            'config' => $config
+            'config' => $config,
+            'location' => $location
         ]);
     }
 

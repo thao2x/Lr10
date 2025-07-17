@@ -155,6 +155,10 @@
                                     </label>
                                     <select name="province_id" id="" class="select-box">
                                         <option value="0">Chọn Thành phố</option>
+                                        @php $provinces = $location['province']; @endphp
+                                        @foreach ($provinces as $province)
+                                            <option value="{{ $province->code }}">{{ $province->full_name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -165,6 +169,10 @@
                                     </label>
                                     <select name="district_id" id="" class="select-box">
                                         <option value="0">Chọn Quận/Huyện</option>
+                                        @php $districts = $location['district']; @endphp
+                                        @foreach ($districts as $district)
+                                            <option value="{{ $district->code }}">{{ $district->full_name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
