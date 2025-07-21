@@ -13,6 +13,8 @@ class AppServiceProvider extends ServiceProvider
         'App\Repositories\Interfaces\ProvinceRepositoryInterface' => 'App\Repositories\ProvinceRepository',
         'App\Services\Interfaces\DistrictServiceInterface' => 'App\Services\DistrictService',
         'App\Repositories\Interfaces\DistrictRepositoryInterface' => 'App\Repositories\DistrictRepository',
+        'App\Services\Interfaces\WardServiceInterface' => 'App\Services\WardService',
+        'App\Repositories\Interfaces\WardRepositoryInterface' => 'App\Repositories\WardRepository',
     ];
 
     /**

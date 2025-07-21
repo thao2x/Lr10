@@ -2,7 +2,8 @@
         ['title' => $config['seo']['create']['title']], 
         ['table' => $config['seo']['create']['tableHeading']])
 
-<form action="" method="" class="box">
+<form action="{{ route('user.store') }}" method="post" class="box">
+    @csrf
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
             <div class="col-lg-4">
@@ -167,12 +168,8 @@
                                     <label for="" class="control-label text-right">
                                         Quận/Huyện
                                     </label>
-                                    <select name="district_id" id="" class="select-box setupSelect2">
+                                    <select name="district_id" id="district-select" class="select-box setupSelect2">
                                         <option value="0">Chọn Quận/Huyện</option>
-                                        @php $districts = $location['district']; @endphp
-                                        @foreach ($districts as $district)
-                                            <option value="{{ $district->code }}">{{ $district->full_name }}</option>
-                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -182,9 +179,8 @@
                                 <div class="form-row d-flex form-select">
                                     <label for="" class="control-label text-right">
                                         Phường/Xã
-                                        <span class="text-danger">(*)</span>
                                     </label>
-                                    <select name="ward_id" id="" class="select-box setupSelect2">
+                                    <select name="ward_id" id="ward-select" class="select-box setupSelect2">
                                         <option value="0">Chọn Phường/Xã</option>
                                     </select>
                                 </div>

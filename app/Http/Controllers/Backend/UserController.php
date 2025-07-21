@@ -58,7 +58,6 @@ class UserController extends Controller
 
         $location = [
             'province' => $this->provinceRepository->all(),
-            'district'=> $this->districtRepository->all(),
         ];
 
         return view('backend.dashboard.layout',[
@@ -66,5 +65,9 @@ class UserController extends Controller
             'config' => $config,
             'location' => $location
         ]);
+    }
+
+    public function store(Request $request) {
+        dd(1);die(  );
     }
 }
