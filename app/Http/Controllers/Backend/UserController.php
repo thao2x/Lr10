@@ -17,13 +17,18 @@ class UserController extends Controller
     protected $provinceRepository;
     protected $districtRepository;
 
-    public function __construct(UserService $userService, ProvinceRepository $provinceRepository, DistrictRepository $districtRepository) {
+    public function __construct(
+        UserService $userService,
+        ProvinceRepository $provinceRepository,
+        DistrictRepository $districtRepository
+    ) {
         $this->userService = $userService;
         $this->provinceRepository = $provinceRepository;
         $this->districtRepository = $districtRepository;
     }
 
-    public function index(){
+    public function index()
+    {
         $users = $this->userService->paginate();
 
         $template = 'backend.user.index';
@@ -36,22 +41,21 @@ class UserController extends Controller
             ],
             'seo' => config('apps.user')
         ];
-        
-        return view('backend.dashboard.layout',[
+
+        return view('backend.dashboard.layout', [
             'template' => $template,
             'config' => $config,
             'users' => $users
         ]);
     }
-    
-    public function create() {
+
+    public function create()
+    {
         $template = 'backend.user.create';
         $config = [
             'js' => [
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
                 'backend/library/location.js',
-                'backend/library/finder.js',
-                'backend/plugin/ckfinder/ckfinder.js'
             ],
             'css' => [
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
@@ -63,14 +67,15 @@ class UserController extends Controller
             'province' => $this->provinceRepository->all(),
         ];
 
-        return view('backend.dashboard.layout',[
+        return view('backend.dashboard.layout', [
             'template' => $template,
             'config' => $config,
             'location' => $location
         ]);
     }
 
-    public function store(StoreUserRequest $request) {
-        dd(1);die(  );
+    public function store(StoreUserRequest $request)
+    {
+        $user = $this->userService->create($request);
     }
 }

@@ -4,8 +4,11 @@ namespace App\Services;
 
 use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 use App\Services\Interfaces\UserServiceInterface;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Request;
 
 /**
  * Class UserService
@@ -23,5 +26,20 @@ class UserService implements UserServiceInterface
     public function paginate() {
         $users = $this->userRepository->getAllPaginate();
         return $users;
+    }
+
+    public function create ($request) {
+        DB::beginTransaction();
+        try {
+            $payload = $request->input();
+            dd($payload);
+
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            echo $e->getMessage();
+            return false;
+        }
     }
 }

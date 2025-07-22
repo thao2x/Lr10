@@ -78,7 +78,7 @@
                                         Ngày sinh
                                     </label>
                                     <input
-                                        type="text"
+                                        type="date"
                                         name="birthday"
                                         value="{{old('bỉthday')}}"
                                         class="form-control"
@@ -136,6 +136,7 @@
                                         class="form-control input-image"
                                         placeholder=""
                                         autocomplete="off"
+                                        data-upload="Images"
                                     />
                                 </div>
                             </div>
