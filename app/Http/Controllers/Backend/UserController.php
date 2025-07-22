@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Services\Interfaces\UserServiceInterface as UserService;
 use App\Repositories\Interfaces\ProvinceRepositoryInterface as ProvinceRepository;
 use App\Repositories\Interfaces\DistrictRepositoryInterface as DistrictRepository;
+use App\Http\Requests\StoreUserRequest;
 
 
 class UserController extends Controller
@@ -48,7 +49,9 @@ class UserController extends Controller
         $config = [
             'js' => [
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
-                'backend/library/location.js'
+                'backend/library/location.js',
+                'backend/library/finder.js',
+                'backend/plugin/ckfinder/ckfinder.js'
             ],
             'css' => [
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
@@ -67,7 +70,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(Request $request) {
+    public function store(StoreUserRequest $request) {
         dd(1);die(  );
     }
 }

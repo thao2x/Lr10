@@ -1,7 +1,15 @@
 @include('backend.dashboard.component.breadcrumb', 
         ['title' => $config['seo']['create']['title']], 
         ['table' => $config['seo']['create']['tableHeading']])
-
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <form action="{{ route('user.store') }}" method="post" class="box">
     @csrf
     <div class="wrapper wrapper-content animated fadeInRight">
@@ -26,7 +34,7 @@
                                     <input
                                         type="text"
                                         name="email"
-                                        value=""
+                                        value="{{old('email')}}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off"
@@ -42,7 +50,7 @@
                                     <input
                                         type="text"
                                         name="name"
-                                        value=""
+                                        value="{{old('name')}}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off"
@@ -57,10 +65,10 @@
                                         Nhóm thành viên
                                         <span class="text-danger">(*)</span>
                                     </label>
-                                    <select name="user_catalogue_id" id="" class="select-box">
+                                    <select name="user_catalogue_id" id="" class="select-box setupSelect2">
                                         <option value="0">Chọn nhóm thành viên</option>
                                         <option value="1">Quản trị viên</option>
-                                        <option value="2">xxxx</option>
+                                        <option value="2">Cộng tác viên</option>
                                     </select>
                                 </div>
                             </div>
@@ -72,7 +80,7 @@
                                     <input
                                         type="text"
                                         name="birthday"
-                                        value=""
+                                        value="{{old('bỉthday')}}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off"
@@ -124,8 +132,8 @@
                                     <input
                                         type="text"
                                         name="image"
-                                        value=""
-                                        class="form-control"
+                                        value="{{old('image')}}"
+                                        class="form-control input-image"
                                         placeholder=""
                                         autocomplete="off"
                                     />
@@ -193,7 +201,7 @@
                                     <input
                                         type="text"
                                         name="address"
-                                        value=""
+                                        value="{{old('adđress')}}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off"
@@ -210,7 +218,7 @@
                                     <input
                                         type="text"
                                         name="phone"
-                                        value=""
+                                        value="{{old('phone')}}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off"
@@ -225,7 +233,7 @@
                                     <input
                                         type="text"
                                         name="description"
-                                        value=""
+                                        value="{{old('description')}}"
                                         class="form-control"
                                         placeholder=""
                                         autocomplete="off"
