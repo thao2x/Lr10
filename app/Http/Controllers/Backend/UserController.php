@@ -76,6 +76,15 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        $user = $this->userService->create($request);
+        // $user = $this->userService->create($request);
+        if ($this->userService->create($request)) {
+            toastr()->success('Thêm mới bản ghi thành công!');
+
+            return redirect()->route('user.index');
+
+        } else {
+            toastr()->error('Thêm mới bản ghi thất bại!');
+            return redirect()->route('user.index');
+        }
     }
 }

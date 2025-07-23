@@ -6,6 +6,7 @@ use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 use App\Services\Interfaces\UserServiceInterface;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Hash;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Request;
@@ -32,11 +33,15 @@ class UserService implements UserServiceInterface
         DB::beginTransaction();
         try {
             $payload = $request->input();
-            dd($payload);
+            $payload['password'] = Hash::make($payload['password']);
+
+            $user = $this->userRepository->create($payload);
+            // dd($user);
 
             DB::commit();
             return true;
         } catch (\Exception $e) {
+            dd($e);
             DB::rollBack();
             echo $e->getMessage();
             return false;
