@@ -22,7 +22,7 @@ class LocationController extends Controller
 
     public function getDistrict(Request $request){
         $provinceCode = $request->input('province_code');
-        $districts = $this->districtRepository->findDistrictByProvinceCode($provinceCode);
+        $districts = $this->districtRepository->getDistrictsByProvinceCode($provinceCode);
 
         return response()->json($districts);
     }

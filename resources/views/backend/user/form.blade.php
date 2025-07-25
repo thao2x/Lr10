@@ -1,6 +1,8 @@
-@include('backend.dashboard.component.breadcrumb', 
-        ['title' => $config['seo']['create']['title']], 
-        ['table' => $config['seo']['create']['tableHeading']])
+@include(
+    'backend.dashboard.component.breadcrumb',
+    ['title' => $config['seo']['create']['title']],
+    ['table' => $config['seo']['create']['tableHeading']]
+)
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -10,7 +12,7 @@
         </ul>
     </div>
 @endif
-<form action="{{ route('user.store') }}" method="post" class="box">
+<form action="{{ isset($user) ? route('user.update', $user->id) : route('user.store') }}" method="post" class="box">
     @csrf
     <div class="wrapper wrapper-content animated fadeInRight">
         <div class="row">
@@ -31,14 +33,8 @@
                                         Email
                                         <span class="text-danger">(*)</span>
                                     </label>
-                                    <input
-                                        type="text"
-                                        name="email"
-                                        value="{{old('email')}}"
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off"
-                                    />
+                                    <input type="text" name="email" value="{{ old('email', $user->email ?? '') }}"
+                                        class="form-control" placeholder="" autocomplete="off" />
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -47,14 +43,8 @@
                                         Họ tên
                                         <span class="text-danger">(*)</span>
                                     </label>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        value="{{old('name')}}"
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off"
-                                    />
+                                    <input type="text" name="name" value="{{ old('name', $user->name ?? '') }}"
+                                        class="form-control" placeholder="" autocomplete="off" />
                                 </div>
                             </div>
                         </div>
@@ -67,8 +57,12 @@
                                     </label>
                                     <select name="user_catalogue_id" id="" class="select-box setupSelect2">
                                         <option value="0">Chọn nhóm thành viên</option>
-                                        <option value="1">Quản trị viên</option>
-                                        <option value="2">Cộng tác viên</option>
+                                        <option value="1"
+                                            {{ old('user_catalogue_id', $user->user_catalogue_id ?? '') == 1 ? 'selected' : '' }}>
+                                            Quản trị viên</option>
+                                        <option value="2"
+                                            {{ old('user_catalogue_id', $user->user_catalogue_id ?? '') == 2 ? 'selected' : '' }}>
+                                            Cộng tác viên</option>
                                     </select>
                                 </div>
                             </div>
@@ -77,14 +71,9 @@
                                     <label for="" class="control-label text-right">
                                         Ngày sinh
                                     </label>
-                                    <input
-                                        type="date"
-                                        name="birthday"
-                                        value="{{old('bỉthday')}}"
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off"
-                                    />
+                                    <input type="date" name="birthday"
+                                        value="{{ old('birthday', $user->birthday ?? '') }}" class="form-control"
+                                        placeholder="" autocomplete="off" />
                                 </div>
                             </div>
                         </div>
@@ -95,14 +84,8 @@
                                         Mật khẩu
                                         <span class="text-danger">(*)</span>
                                     </label>
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        value=""
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off"
-                                    />
+                                    <input type="password" name="password" value="" class="form-control"
+                                        placeholder="" autocomplete="off" />
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -111,14 +94,8 @@
                                         Nhập lại mật khẩu
                                         <span class="text-danger">(*)</span>
                                     </label>
-                                    <input
-                                        type="password"
-                                        name="re_password"
-                                        value=""
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off"
-                                    />
+                                    <input type="password" name="re_password" value="" class="form-control"
+                                        placeholder="" autocomplete="off" />
                                 </div>
                             </div>
                         </div>
@@ -129,15 +106,9 @@
                                         Ảnh đại diện
                                         <span class="text-danger">(*)</span>
                                     </label>
-                                    <input
-                                        type="text"
-                                        name="image"
-                                        value="{{old('image')}}"
-                                        class="form-control input-image"
-                                        placeholder=""
-                                        autocomplete="off"
-                                        data-upload="Images"
-                                    />
+                                    <input type="text" name="image" value="{{ old('image', $user->image ?? '') }}"
+                                        class="form-control input-image" placeholder="" autocomplete="off"
+                                        data-upload="Images" />
                                 </div>
                             </div>
                         </div>
@@ -167,7 +138,10 @@
                                         <option value="0">Chọn Thành phố</option>
                                         @php $provinces = $location['province']; @endphp
                                         @foreach ($provinces as $province)
-                                            <option value="{{ $province->code }}">{{ $province->full_name }}</option>
+                                            <option value="{{ $province->code }}"
+                                                {{ old('province_id', $user->province_id ?? '') == $province->code ? 'selected' : '' }}>
+                                                {{ $province->full_name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -178,7 +152,12 @@
                                         Quận/Huyện
                                     </label>
                                     <select name="district_id" id="district-select" class="select-box setupSelect2">
-                                        <option value="0">Chọn Quận/Huyện</option>
+                                        @foreach ($user->province->dictricts as $district)
+                                            <option value="{{ $district->code }}"
+                                                {{ old('district_id', $user->district->code ?? '') == $district->code ? 'selected' : '' }}>
+                                                {{ $district->full_name }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -191,6 +170,12 @@
                                     </label>
                                     <select name="ward_id" id="ward-select" class="select-box setupSelect2">
                                         <option value="0">Chọn Phường/Xã</option>
+                                        @foreach ($user->district->wards as $ward)
+                                            <option value="{{ $ward->code }}"
+                                                {{ old('ward_id', $user->ward->code ?? '') == $ward->code ? 'selected' : '' }}>
+                                                {{ $ward->full_name }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -199,14 +184,9 @@
                                     <label for="" class="control-label text-right">
                                         Địa chỉ
                                     </label>
-                                    <input
-                                        type="text"
-                                        name="address"
-                                        value="{{old('adđress')}}"
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off"
-                                    />
+                                    <input type="text" name="address"
+                                        value="{{ old('address', $user->address ?? '') }}" class="form-control"
+                                        placeholder="" autocomplete="off" />
                                 </div>
                             </div>
                         </div>
@@ -216,14 +196,9 @@
                                     <label for="" class="control-label text-right">
                                         Số điện thoại
                                     </label>
-                                    <input
-                                        type="text"
-                                        name="phone"
-                                        value="{{old('phone')}}"
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off"
-                                    />
+                                    <input type="text" name="phone"
+                                        value="{{ old('phone', $user->phone ?? '') }}" class="form-control"
+                                        placeholder="" autocomplete="off" />
                                 </div>
                             </div>
                             <div class="col-lg-6">
@@ -231,14 +206,9 @@
                                     <label for="" class="control-label text-right">
                                         Ghi chú
                                     </label>
-                                    <input
-                                        type="text"
-                                        name="description"
-                                        value="{{old('description')}}"
-                                        class="form-control"
-                                        placeholder=""
-                                        autocomplete="off"
-                                    />
+                                    <input type="text" name="description"
+                                        value="{{ old('description', $user->description ?? '') }}"
+                                        class="form-control" placeholder="" autocomplete="off" />
                                 </div>
                             </div>
                         </div>

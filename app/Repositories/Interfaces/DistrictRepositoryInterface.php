@@ -9,5 +9,6 @@ namespace App\Repositories\Interfaces;
 interface DistrictRepositoryInterface
 {
     public function all();
-    public function findDistrictByProvinceCode(int $province_code);
+    public function getDistrictsByProvinceCode(int $province_code);
+    public function findByCode(int $province_code);
 }

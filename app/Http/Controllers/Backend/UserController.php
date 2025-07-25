@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Carbon\Carbon;
 use App\Services\Interfaces\UserServiceInterface as UserService;
 use App\Repositories\Interfaces\ProvinceRepositoryInterface as ProvinceRepository;
 use App\Repositories\Interfaces\DistrictRepositoryInterface as DistrictRepository;
+use App\Repositories\Interfaces\WardRepositoryInterface as WardRepository;
+use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 use App\Http\Requests\StoreUserRequest;
 
 
@@ -16,15 +19,21 @@ class UserController extends Controller
     protected $userService;
     protected $provinceRepository;
     protected $districtRepository;
+    protected $wardRepository;
+    protected $userRepository;
 
     public function __construct(
         UserService $userService,
         ProvinceRepository $provinceRepository,
-        DistrictRepository $districtRepository
+        DistrictRepository $districtRepository,
+        WardRepository $wardRepository,
+        UserRepository $userRepository
     ) {
         $this->userService = $userService;
         $this->provinceRepository = $provinceRepository;
         $this->districtRepository = $districtRepository;
+        $this->wardRepository = $wardRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function index()
@@ -51,7 +60,7 @@ class UserController extends Controller
 
     public function create()
     {
-        $template = 'backend.user.create';
+        $template = 'backend.user.form';
         $config = [
             'js' => [
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
@@ -76,7 +85,6 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        // $user = $this->userService->create($request);
         if ($this->userService->create($request)) {
             toastr()->success('Thêm mới bản ghi thành công!');
 
@@ -86,5 +94,33 @@ class UserController extends Controller
             toastr()->error('Thêm mới bản ghi thất bại!');
             return redirect()->route('user.index');
         }
+    }
+
+    public function edit ($id) {
+        $user = $this->userRepository->findById($id);
+        $user->birthday = Carbon::parse($user->birthday)->format('Y-m-d');
+        
+        $template = 'backend.user.form';
+        $config = [
+            'js' => [
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js',
+                'backend/library/location.js',
+            ],
+            'css' => [
+                'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
+            ],
+            'seo' => config('apps.user')
+        ];
+
+        $location = [
+            'province' => $this->provinceRepository->all(),
+        ];
+
+        return view('backend.dashboard.layout', [
+            'template' => $template,
+            'config' => $config,
+            'location' => $location,
+            'user' => $user
+        ]);
     }
 }
