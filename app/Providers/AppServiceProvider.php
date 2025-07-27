@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -34,5 +36,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Schema::defaultStringLength(191);
+
+        DB::listen(function ($query) {
+            Log::alert("SQL: " . $query->sql);
+            Log::alert("Bindings: " . implode(', ', $query->bindings));
+            Log::alert("Time: " . $query->time . 'ms');
+        });
     }
 }

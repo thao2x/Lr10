@@ -45,7 +45,7 @@
         });
     }
 
-    HT.dictrict = () => {
+    HT.district = () => {
         $("#district-select").on("change", function () {
             let district_code = $(this).val();
 
@@ -90,6 +90,6 @@
 
     $document.ready(function () {
         HT.province();
-        HT.dictrict();
+        HT.district();
     });
 })(jQuery);

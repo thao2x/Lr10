@@ -77,28 +77,30 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-lg-6">
-                                <div class="form-row">
-                                    <label for="" class="control-label text-right">
-                                        Mật khẩu
-                                        <span class="text-danger">(*)</span>
-                                    </label>
-                                    <input type="password" name="password" value="" class="form-control"
-                                        placeholder="" autocomplete="off" />
+                        @if ($config['method'] == 'create')
+                            <div class="row mb-3">
+                                <div class="col-lg-6">
+                                    <div class="form-row">
+                                        <label for="" class="control-label text-right">
+                                            Mật khẩu
+                                            <span class="text-danger">(*)</span>
+                                        </label>
+                                        <input type="password" name="password" value="" class="form-control"
+                                            placeholder="" autocomplete="off" />
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-row">
+                                        <label for="" class="control-label text-right">
+                                            Nhập lại mật khẩu
+                                            <span class="text-danger">(*)</span>
+                                        </label>
+                                        <input type="password" name="re_password" value="" class="form-control"
+                                            placeholder="" autocomplete="off" />
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="form-row">
-                                    <label for="" class="control-label text-right">
-                                        Nhập lại mật khẩu
-                                        <span class="text-danger">(*)</span>
-                                    </label>
-                                    <input type="password" name="re_password" value="" class="form-control"
-                                        placeholder="" autocomplete="off" />
-                                </div>
-                            </div>
-                        </div>
+                        @endif
                         <div class="row mb-3">
                             <div class="col-lg-12">
                                 <div class="form-row">
@@ -152,12 +154,15 @@
                                         Quận/Huyện
                                     </label>
                                     <select name="district_id" id="district-select" class="select-box setupSelect2">
-                                        @foreach ($user->province->dictricts as $district)
-                                            <option value="{{ $district->code }}"
-                                                {{ old('district_id', $user->district->code ?? '') == $district->code ? 'selected' : '' }}>
-                                                {{ $district->full_name }}
-                                            </option>
-                                        @endforeach
+                                        <option value="0">Chọn Quận/Huyện</option>
+                                        @if (isset($user->province->districts))
+                                            @foreach ($user->province->districts as $district)
+                                                <option value="{{ $district->code }}"
+                                                    {{ old('district_id', $user->district_id ?? '') == $district->code ? 'selected' : '' }}>
+                                                    {{ $district->full_name }}
+                                                </option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>
@@ -170,12 +175,14 @@
                                     </label>
                                     <select name="ward_id" id="ward-select" class="select-box setupSelect2">
                                         <option value="0">Chọn Phường/Xã</option>
-                                        @foreach ($user->district->wards as $ward)
-                                            <option value="{{ $ward->code }}"
-                                                {{ old('ward_id', $user->ward->code ?? '') == $ward->code ? 'selected' : '' }}>
-                                                {{ $ward->full_name }}
-                                            </option>
-                                        @endforeach
+                                        @if (isset($user->district->wards))
+                                            @foreach ($user->district->wards as $ward)
+                                                <option value="{{ $ward->code }}"
+                                                    {{ old('ward_id', $user->ward_id ?? '') == $ward->code ? 'selected' : '' }}>
+                                                    {{ $ward->full_name }}
+                                                </option>
+                                            @endforeach
+                                        @endif
                                     </select>
                                 </div>
                             </div>

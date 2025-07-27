@@ -31,7 +31,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('create', [UserController::class, 'create'])->name('user.create');
         Route::post('store', [UserController::class, 'store'])->name('user.store');
         Route::get('edit/{id}', [UserController::class, 'edit'])->where(['id' => '[0-9]+'])->name('user.edit');
-        Route::put('update/{id}', [UserController::class, 'update'])->where(['id' => '[0-9]+'])->name('user.update');
+        Route::post('update/{id}', [UserController::class, 'update'])->where(['id' => '[0-9]+'])->name('user.update');
     });
 
 });

@@ -26,6 +26,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function findById($id)
     {
-        return $this->model->find($id);
+        return $this->model::with(['province.districts', 'district.wards', 'ward'])->find($id);
     }
 }

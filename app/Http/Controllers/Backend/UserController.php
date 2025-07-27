@@ -12,7 +12,7 @@ use App\Repositories\Interfaces\DistrictRepositoryInterface as DistrictRepositor
 use App\Repositories\Interfaces\WardRepositoryInterface as WardRepository;
 use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 use App\Http\Requests\StoreUserRequest;
-
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -69,7 +69,8 @@ class UserController extends Controller
             'css' => [
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
             ],
-            'seo' => config('apps.user')
+            'seo' => config('apps.user'),
+            'method' => 'create'
         ];
 
         $location = [
@@ -96,7 +97,8 @@ class UserController extends Controller
         }
     }
 
-    public function edit ($id) {
+    public function edit ($id) 
+    {
         $user = $this->userRepository->findById($id);
         $user->birthday = Carbon::parse($user->birthday)->format('Y-m-d');
         
@@ -109,7 +111,8 @@ class UserController extends Controller
             'css' => [
                 'https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css'
             ],
-            'seo' => config('apps.user')
+            'seo' => config('apps.user'),
+            'method'=> 'edit'
         ];
 
         $location = [
@@ -122,5 +125,10 @@ class UserController extends Controller
             'location' => $location,
             'user' => $user
         ]);
+    }
+
+    public function update ($id) 
+    {
+        echo($id);
     }
 }

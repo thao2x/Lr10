@@ -18,7 +18,7 @@ class Province extends Model
     public $incrementing = false;
 
     
-    public function dictricts(){
+    public function districts(){
         return $this->hasMany(District::class,'province_code','code');
     }
 }

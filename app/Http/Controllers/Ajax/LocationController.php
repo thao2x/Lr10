@@ -29,7 +29,7 @@ class LocationController extends Controller
 
     public function getWard(Request $request){
         $districtCode = $request->input('district_code');
-        $wards = $this->wardRepository->findWardByDistrictCode($districtCode);
+        $wards = $this->wardRepository->getWardsByDistrictCode($districtCode);
 
         return response()->json($wards);
     }
