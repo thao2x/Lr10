@@ -12,6 +12,7 @@ use App\Repositories\Interfaces\DistrictRepositoryInterface as DistrictRepositor
 use App\Repositories\Interfaces\WardRepositoryInterface as WardRepository;
 use App\Repositories\Interfaces\UserRepositoryInterface as UserRepository;
 use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
@@ -127,8 +128,50 @@ class UserController extends Controller
         ]);
     }
 
-    public function update ($id) 
+    public function update ($id, UpdateUserRequest $request) 
     {
-        echo($id);
+        if ($this->userService->update($id, $request)) {
+            toastr()->success('Cập nhật bản ghi thành công!');
+
+            return redirect()->route('user.index');
+
+        } else {
+            toastr()->error('Cập nhật bản ghi thất bại!');
+            return redirect()->route('user.index');
+        }
+    }
+
+    public function delete ($id) 
+    {
+        $user = $this->userRepository->findById($id);
+        
+        $template = 'backend.user.delete';
+        $config = [
+            'seo' => config('apps.user'),
+            'method'=> 'delete'
+        ];
+
+        $location = [
+            'province' => $this->provinceRepository->all(),
+        ];
+
+        return view('backend.dashboard.layout', [
+            'template' => $template,
+            'config' => $config,
+            'user' => $user
+        ]);
+    }
+
+    public function destroy ($id) 
+    {
+        if ($this->userService->delete($id)) {
+            toastr()->success('Xóa bản ghi thành công!');
+
+            return redirect()->route('user.index');
+
+        } else {
+            toastr()->error('Xóa bản ghi thất bại!');
+            return redirect()->route('user.index');
+        }
     }
 }

@@ -36,7 +36,38 @@ class UserService implements UserServiceInterface
             $payload['password'] = Hash::make($payload['password']);
 
             $user = $this->userRepository->create($payload);
-            // dd($user);
+
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            dd($e);
+            DB::rollBack();
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function update ($id, $request) {
+        DB::beginTransaction();
+        try {
+            $payload = $request->input();
+
+            $user = $this->userRepository->update($id, $payload);
+
+            DB::commit();
+            return true;
+        } catch (\Exception $e) {
+            dd($e);
+            DB::rollBack();
+            echo $e->getMessage();
+            return false;
+        }
+    }
+
+    public function delete ($id) {
+        DB::beginTransaction();
+        try {
+            $user = $this->userRepository->delete($id);
 
             DB::commit();
             return true;
