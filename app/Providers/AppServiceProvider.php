@@ -38,9 +38,11 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         DB::listen(function ($query) {
-            Log::alert("SQL: " . $query->sql);
-            Log::alert("Bindings: " . implode(', ', $query->bindings));
-            Log::alert("Time: " . $query->time . 'ms');
+            Log::channel('database')->debug("=======================================================");
+            Log::channel('database')->debug("SQL     : " . $query->sql);
+            Log::channel('database')->debug("BINDINGS: " . implode(', ', $query->bindings));
+            Log::channel('database')->debug("TIME    : " . $query->time . 'ms');
+            Log::channel('database')->debug("=======================================================");
         });
     }
 }
