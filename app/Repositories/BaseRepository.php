@@ -46,16 +46,26 @@ class BaseRepository implements BaseRepositoryInterface
         return $this->model->all();
     }
 
-    public function pagination($column = ['*'], $condition = [], $join = [], $perpage = 20)
-    {
-        $query = $this->model->select($column)->where($condition);
+    public function pagination(
+                        array $column = ['*'],
+                        array $condition = [],
+                        // array $join = [],   
+                        int $perPage = 20
+    ) {
+        $query = $this->model->select($column)
+            ->when(!empty($condition['keyword']), fn($q) =>
+                $q->where('name', 'like', '%' . $condition['keyword'] . '%')
+            )
+            ->when(!empty($condition['user_catalogue_id']), fn($q) =>
+                $q->where('user_catalogue_id', 'like', '%' . $condition['user_catalogue_id'] . '%')
+            );
+        
 
-        // Nếu có join
-        foreach ($join as $item) {
-            // item dạng: ['table' => 'categories', 'first' => 'products.category_id', 'operator' => '=', 'second' => 'categories.id']
-            $query->join($item['table'], $item['first'], $item['operator'], $item['second']);
-        }
+        // dd($query->toSql());
+        // if (!empty($join)) {
+        //     $query->join(...$join);
+        // }
 
-        return $query->paginate($perpage);
+        return $query->paginate($perPage)->appends(request()->query());
     }
 }

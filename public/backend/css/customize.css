@@ -88,6 +88,10 @@
     margin-bottom: 2rem !important;
 }
 
+.mr-1 {
+    margin: 0.5rem;
+}
+
 .h-34 {
     height: 34px;
 }

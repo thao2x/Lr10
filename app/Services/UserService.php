@@ -24,8 +24,15 @@ class UserService implements UserServiceInterface
         $this->userRepository = $userRepository;
     }
 
-    public function paginate() {
-        $users = $this->userRepository->getAllPaginate();
+    public function paginate($request) {
+
+        $keyword = $request->input('keyword');
+        $perPage = $request->input('perpage');
+        $user_catalogue_id = $request->input('user_catalogue_id');
+
+        $users = $this->userRepository->pagination(['id', 'name', 'email', 'phone', 'address', 'publish'], 
+                                                    ['keyword' => $keyword, 'user_catalogue_id' => $user_catalogue_id], 
+                                                    $perPage);
         return $users;
     }
 
