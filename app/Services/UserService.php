@@ -27,7 +27,7 @@ class UserService implements UserServiceInterface
     public function paginate($request) {
 
         $keyword = $request->input('keyword');
-        $perPage = $request->input('perpage');
+        $perPage = $request->input('perpage') ? $request->input('perpage') : '20';
         $user_catalogue_id = $request->input('user_catalogue_id');
 
         $users = $this->userRepository->pagination(['id', 'name', 'email', 'phone', 'address', 'publish'], 

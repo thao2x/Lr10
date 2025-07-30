@@ -3,7 +3,7 @@
         <div class="perpage">
             <div class="d-flex align-items-center justify-content-between mb-2 h-34">
                 <select name="perpage" class="form-control perpage filter w15">
-                    @for ($i = 5; $i <= 200; $i+=5)
+                    @for ($i = 20; $i <= 200; $i+=20)
                         <option value="{{ $i }}" {{ request('perpage') == $i ? 'selected' : '' }}>{{ $i }} bản ghi</option>
                     @endfor
                 </select>
