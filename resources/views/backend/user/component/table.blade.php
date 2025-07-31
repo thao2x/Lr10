@@ -34,7 +34,8 @@
                     <td class="text-center">
                         <input 
                             type="checkbox" 
-                            class="js-switch item_switch_{{$user->id}} status_publish"
+                            id="item_switch_{{$user->id}}"
+                            class="js-switch status_publish"
                             value="{{ $user->publish }}"
                             {{($user->publish == 1) ? 'checked' : ''}}>
                     </td>

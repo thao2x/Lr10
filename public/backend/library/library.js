@@ -9,13 +9,23 @@
     }
 
     HT.status = () => {
-        $('.status_publish').change(function() {
-            console.log(123);
+        document.querySelectorAll('.status_publish').forEach(function(checkbox) {
+            checkbox.addEventListener('change', function() {
+                let switcheryElement = $(this);
+
+                let id = switcheryElement.attr("id");
+                let value = switcheryElement.prop("checked");
+
+                console.log(`+++++++++++++++++++++`);
+                console.log(`ID   : ${id}`);
+                console.log(`VALUE: ${value}`);
+                console.log(`+++++++++++++++ ++++++`);
+            });
         });
     }
 
-    $document.ready(function(){
+    $document.ready(function(){        
         HT.select2();
-        HT.status();
+        // HT.status();
     });
 })(jQuery);
